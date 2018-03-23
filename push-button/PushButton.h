@@ -31,6 +31,8 @@ void Fader::init()
 void Fader::check()
 {
 
+    Serial.print("check");
+
     int buttonState = digitalRead(_button);
 
     if (!_buttonPressed)
