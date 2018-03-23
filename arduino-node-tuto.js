@@ -1,12 +1,12 @@
-const { Board, Led } = require('johnny-five');
+const { Board, Pin } = require('johnny-five');
 
 const Arduino1 = new Board({timeout: 5000});
 
 Arduino1.on("ready", () => {
 
-  const led = new Led(12);
+  const pin = new Pin(4);
 
-  led.on();
+  pin.on();
 
 });
 
