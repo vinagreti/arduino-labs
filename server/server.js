@@ -2,16 +2,18 @@ var express = require('express');
 
 var app = express();
 
+const { Equipments } = require('./firebase');
+
 const { Ardulino } = require('./ardulino');
+
+const Arduino1 = new Ardulino();
 
 const { Raspilino } = require('./raspilino');
 
-const Board1 = new Ardulino();
-
-const { Equipments } = require('./firebase');
+const Rasp1 = new Ardulino();
 
 // Arduino 1 from sitio
-Equipments.init(Board1);
+Equipments.init(Arduino1);
 
 const A1 = Equipments.A1;
 
@@ -43,14 +45,14 @@ app.get('/toggle/:pin', function (req, res) {
     
     const pin = req.params.pin;
     
-    Board1.toggle(pin);
+    Arduino1.toggle(pin);
     
     res.end();
 
 });
 
 app.get('/boardStatus', function (req, res) {
-    const status = Board1.boardStatus(8);
+    const status = Arduino1.boardStatus(8);
     res.send(status);
 });
 
@@ -62,7 +64,7 @@ app.get('/run/:command/:arg1*?/:arg2*?', function (req, res) {
 
     const arg2 = req.params.arg2;
 
-    const result = Board1[command](arg1, arg2);
+    const result = Arduino1[command](arg1, arg2);
 
     res.send(result);
 
